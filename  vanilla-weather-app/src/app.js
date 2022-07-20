@@ -21,6 +21,33 @@ function formatDate(timestamp) {
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forcastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun"];
+  days.forEach(function (day) {
+    forcastHTML =
+      forcastHTML +
+      ` 
+        <div class="col-2">
+          <div class="weather-forecat-date">${day}</div>
+          <img
+            src="https://openweathermap.org/img/wn/01d@2x.png"
+            alt=""
+            width="42"
+          />
+          <div class="weather-forecast-temp">
+            <span class="weather-forecast-temp-max">18°</span>
+            <span class="weather-forecast-temp-min"> 12°</span>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  forcastHTML = forcastHTML + `</div>`;
+
+  forecastElement.innerHTML = forcastHTML;
+}
 
 function displayTemperature(response) {
   console.log(response.data);
@@ -45,6 +72,7 @@ function displayTemperature(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
+displayForecast();
 function search(city) {
   let apiKey = "8020162217ba2a2e835a4a632f881993";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
